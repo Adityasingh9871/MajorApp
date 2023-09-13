@@ -1,4 +1,4 @@
-post http://localhost:8080/auth/register
+post http://localhost:8080/auth/login
 Content-Type: application/json
 
 {
@@ -10,7 +10,7 @@ Content-Type: application/json
 
 ###usetoken
 GET http://localhost:8080/auth
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY0ZmNhMWRjY2VkNjQzYWQzNDY3ZjUwMiIsImlhdCI6MTY5NDM2NTg2MCwiZXhwIjoxNjk0MzY1ODcwLCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9.6RO9MLekzxkHzaSe28e2BT2XRJFkf7zdcEA9b4_jqMU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY1MDAwZGE1OWFiNWU4ZDkxMGE5OGQ5OCIsImlhdCI6MTY5NDUzOTY3MSwiZXhwIjoxNjk0NTM5NzAxLCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9._Dh9as7D3t8zCuFkatmg0DKIvR-nEo5wLwNrrwFYgaQ
 
 
 ###refreshtoken

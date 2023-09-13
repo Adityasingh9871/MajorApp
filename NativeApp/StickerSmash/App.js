@@ -29,7 +29,7 @@ export default function App() {
       });
 
       const result=await axios.post("http://localhost:8080/auth/register",data,{headers:{"Content-Type" : "application/json"}})
-      console.log(result)
+      console.log(result.status)
       
     } catch (error) {
       console.log(error.message)

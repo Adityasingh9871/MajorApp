@@ -1,3 +1,4 @@
 node_modules/*
 NativeApp/StickerSmash/node_modules/*
+NativeApp/Demo/node_modules/*
 backend/Api/node_modules/*
