@@ -1,0 +1,29 @@
+post http://localhost:8080/auth/register
+Content-Type: application/json
+
+{
+    "email":"abcd@gmail.com",
+    "password":"aaa",
+    "mobile":9871426409,
+    "name":"aditya"
+}
+
+###usetoken
+GET http://localhost:8080/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY0ZmNhMWRjY2VkNjQzYWQzNDY3ZjUwMiIsImlhdCI6MTY5NDM2NTg2MCwiZXhwIjoxNjk0MzY1ODcwLCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9.6RO9MLekzxkHzaSe28e2BT2XRJFkf7zdcEA9b4_jqMU
+
+
+###refreshtoken
+post http://localhost:8080/auth/refreshToken
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY0ZmNhMWRjY2VkNjQzYWQzNDY3ZjUwMiIsImlhdCI6MTY5NDM2NjQ3NCwiZXhwIjoxNjk0MzcwMDc0LCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9.HQ-Pbdh2kbLWZbc7pywB8Ke_DBCQGrlG1bK4kdKAYzM"
+}
+
+post http://localhost:8080/auth/logout
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY0ZmNhMWRjY2VkNjQzYWQzNDY3ZjUwMiIsImlhdCI6MTY5NDM2NjQ3NCwiZXhwIjoxNjk0MzcwMDc0LCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9.HQ-Pbdh2kbLWZbc7pywB8Ke_DBCQGrlG1bK4kdKAYzM"
+}
