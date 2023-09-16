@@ -10,6 +10,9 @@ export default function Home({navigation})
             <Button title="Register"
             onPress={()=>navigation.navigate("Register")}
             />
+            <Button title="TestScreen"
+            onPress={()=>navigation.navigate("TestScreen")}
+            />
             
         </View>
     )
