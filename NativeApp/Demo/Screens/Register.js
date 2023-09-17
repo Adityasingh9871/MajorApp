@@ -46,68 +46,61 @@ const validateForm = () => {
     setIsFormValid(Object.keys(errors).length === 0);
 };
 
-    return (
-        <View style={styles.container}>
-          <Text style={styles.title} >Welcome to MyApp</Text>
-
-          <TextInput
-        style={styles.input}
-        placeholder="Name"
-        onChangeText={(text) => setName(text)}
-        value={name}
-        secureTextEntry
-      />
-
-          <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-
-      />
-       <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        secureTextEntry
-      />
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title} >Welcome to MyApp</Text>
+      <TextInput
+      style={styles.input}
+      placeholder="Name"
+      onChangeText={(text) => setName(text)}
+      value={name}
+      secureTextEntry
+  />
 
       <TextInput
-        style={styles.input}
-        placeholder="Repeat Password"
-        onChangeText={(text) => setRpassword(text)}
-        value={rpassword}
-        secureTextEntry
+      style={styles.input}
+      placeholder="Email"
+      onChangeText={(text) => setEmail(text)}
+      value={email}
+
+  />
+      <TextInput
+      style={styles.input}
+      placeholder="Password"
+      onChangeText={(text) => setPassword(text)}
+      value={password}
+      secureTextEntry
+  />
+
+    <TextInput
+      style={styles.input}
+      placeholder="Repeat Password"
+      onChangeText={(text) => setRpassword(text)}
+      value={rpassword}
+      secureTextEntry
+    />
+
+    <View style={styles.buttonContainer}>
+      <Button title="Login"
+      onPress={()=>navigation.navigate("DashBoard")}
+      />
+      <Button title="Register"
+      onPress={()=>navigation.navigate("Register")}
+      />
+      <Button title="TestScreen"
+      onPress={()=>navigation.navigate("TestScreen")}
       />
 
+    </View>
 
-
-
-
-
-<View style={styles.buttonContainer}>
-            <Button title="Login"
-            // style={[styles.button, { backgroundColor: 'red' }]}
-            onPress={()=>navigation.navigate("DashBoard")}
-            />
-            <Button title="Register"
-            onPress={()=>navigation.navigate("Register")}
-            />
-            <Button title="TestScreen"
-            onPress={()=>navigation.navigate("TestScreen")}
-            />
-
-            </View>
-
-            {Object.values(errors).map((error, index) => (
-                <Text key={index} style={styles.error}>
-                    {error}
-                </Text>
-            ))}
-            
-        </View>
-    )
+    {Object.values(errors).map((error, index) => (
+        <Text key={index} style={styles.error}>
+            {error}
+        </Text>
+    ))}
+          
+  </View>
+  )
 }
 
 //styles

@@ -69,6 +69,9 @@ const validateForm = () => {
             <Button title="TestScreen"
             onPress={()=>navigation.navigate("TestScreen")}
             />
+            <Button title="Category"
+            onPress={()=>navigation.navigate("Category")}
+            />
 
             </View>
 
