@@ -1,11 +1,11 @@
 import { Text,View } from "react-native"
-import NavigationStrip from "../Components/NavigationStrip"
+// import Chart from "../Components/Chart"
 
 export default function TestScreen()
 {
     return(
         <View>
-            <NavigationStrip />
+            {/* <Chart /> */}
         </View>
     )
 }

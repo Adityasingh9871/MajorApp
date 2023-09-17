@@ -10,9 +10,12 @@ import TestScreen from './Screens/TestScreen';
 export default function App() {
 
   const Stack=createNativeStackNavigator()
+  // options={
+  //   head
+  // }
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Login'>
+      <Stack.Navigator initialRouteName='Login' screenOptions={{headerTitleAlign:"center",headerStyle: { backgroundColor: "white" }}} >
         <Stack.Screen name="Login" component={Home} />
         <Stack.Screen name="DashBoard" component={DashBoard} />
         <Stack.Screen name="Register" component={Register} />
