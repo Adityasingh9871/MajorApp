@@ -1,14 +1,12 @@
 import { Text,View,StyleSheet } from "react-native"
 import Chart2 from "../Components/Chart2"
 import RowStrip from "../Components/RowStrip"
+// import NavigationStrip from "../Components/NavigationStrip"
 export default function TestScreen()
 {
     return(
         <View >
-            {/* <Chart2 /> */}
-            {/* <RowStrip />
-            <RowStrip />
-            <RowStrip /> */}
+            {/* <NavigationStrip /> */}
         </View>
     )
 }

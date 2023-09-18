@@ -14,46 +14,55 @@ export default function Categories()
         ["Watch TV", 2],
         ["Sleep", 7],
       ];
-
     const colors= ['#1536e0','#f9c8c3','#dc4e6c','#90e6b0','#18f2bf']
 
-    
-
     return(
-        <View >
-            <Chart2 name={data.slice(1)} color={colors} />
-            <ScrollView>
-            {
-                data.slice(1).map((x,i)=>(
-                    <View key={i}>
-                    <RowStrip name={x[0]} price={x[1]} c={colors[i]} />
-                    </View>
-                ))
-            }
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            <RowStrip name={"date"} price={"1"} c={'#18f2bf'} />
-            </ScrollView>
+        <View style={styles.Container} >
+            <View style={styles.ChartContainer}>
+                <Chart2 name={data.slice(1)} color={colors} />
+            </View>
+            
+            <View style={styles.DataContainer}>
+                <ScrollView>
+                    {
+                        data.slice(1).map((x,i)=>(
+                            <View key={i}>
+                            <RowStrip name={x[0]} price={x[1]} c={colors[i]} />
+                            </View>
+                        ))
+                    }
+                </ScrollView>
+            </View>
 
-            {/* <RowStrip />
-            <RowStrip />
-            <RowStrip /> */}
+            <View style={styles.BottomStrip}>
+                {/* <NavigationStrip /> */}
+            </View>
         </View>
     )
 }
 
-// const styles=StyleSheet.create({
-//     container:{
-//         flex: 1,
-//         flexDirection: 'column',
-//         justifyContent: 'space-between',
-//     },
+const styles=StyleSheet.create({
+    Container:{
+        flex:1,
+    },
+    ChartContainer:{
+        display:"flex",
+        justifyContent: 'space-between',
+        // alignItems:"center",
+        padding:10,
+        margin:10,
+        // backgroundColor:"blue"
+    },
+    DataContainer:{
+        padding:5,
+        margin:1,
+    },
+    BottomStrip:{
+        position: 'absolute', // Position the NavigationStrip absolutely at the bottom
+        left: 0,
+        right: 0,
+        bottom: 0,
+        margin:10
+    }
 
-// })
+})

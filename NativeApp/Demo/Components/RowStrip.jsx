@@ -6,7 +6,7 @@ export default function RowStrip({name,price,c})
 
     return(
         <View style={styles.container}>
-            <View  style={[styles.box,{flex:.1,backgroundColor:c}]} />
+            <View  style={[styles.box,{flex:.3,backgroundColor:c,borderRadius:5}]} />
             <View  style={[styles.box,{flex:8,backgroundColor:"white"}]} >
                 <Text style={styles.text}>{name}</Text>
             </View>
@@ -22,13 +22,14 @@ const styles=StyleSheet.create({
         display:"flex",
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 10, 
+        padding: 2, 
         margin:.1
     },
     box:{
         height:50,
         justifyContent:"center",
-        alignItems:"left"
+        alignItems:"left",
+        margin:1
         
     },
     text:{

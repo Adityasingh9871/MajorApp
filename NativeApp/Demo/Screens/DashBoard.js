@@ -1,13 +1,12 @@
 import { StyleSheet,Text,View } from "react-native"
-import NavigationStrip from "../Components/NavigationStrip"
+// import NavigationStrip from "../Components/NavigationStrip"
 
 export default function DashBoard()
 {
     return(
         <View style={styles.container}>
             <Text>DashBoard</Text>
-            <NavigationStrip />
-            
+            {/* <NavigationStrip /> */}
         </View>
     )
 }
