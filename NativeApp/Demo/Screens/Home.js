@@ -61,17 +61,17 @@ const validateForm = () => {
 <View style={styles.buttonContainer}>
             <Button title="Login"
             // style={[styles.button, { backgroundColor: 'red' }]}
-            onPress={()=>navigation.navigate("DashBoard")}
+            onPress={()=>navigation.navigate("MainHome")}
             />
             <Button title="Register"
             onPress={()=>navigation.navigate("Register")}
             />
-            <Button title="TestScreen"
+            {/* <Button title="TestScreen"
             onPress={()=>navigation.navigate("TestScreen")}
             />
             <Button title="Category"
             onPress={()=>navigation.navigate("Category")}
-            />
+            /> */}
 
             </View>
 

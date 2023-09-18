@@ -6,8 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Home from './Screens/Home';
 import DashBoard from './Screens/DashBoard';
 import Register from './Screens/Register';
-import TestScreen from './Screens/TestScreen';
-import Categories from './Screens/Categories';
+import MainHome from './Screens/MainHome';
 
 export default function App() {
 
@@ -21,10 +20,8 @@ export default function App() {
       
       <Stack.Navigator initialRouteName='Login' screenOptions={{headerTitleAlign:"center",headerStyle: { backgroundColor: "white" }}} >
         <Stack.Screen name="Login" component={Home} />
-        <Stack.Screen name="DashBoard" component={DashBoard} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="TestScreen" component={TestScreen} />
-        <Stack.Screen name="Category" component={Categories} />
+        <Stack.Screen name="MainHome" component={MainHome} />
       </Stack.Navigator>
       {/* <View style={styles.container}>
         <Text>Open up App.js to start working on your app!</Text>
