@@ -1,88 +1,77 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar'; // Add Image to the import statement
 import { StyleSheet,Button, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-export default function Home({navigation})
-{
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
-  const [isFormValid, setIsFormValid] = useState(false);
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 
-  useEffect(() => {
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+});
+
+
+export default  Home =()=> {
   
-    // Trigger form validation when name, 
-    // email, or password changes
-    validateForm();
-}, [ email, password]);
+  const initialValues = {
+    email: '',
+    password: '',
+  };
 
-const validateForm = () => {
-    let errors = {};
+  const handleFormSubmit = (values) => {
+    // Handle form submission logic here
+    console.log('Form submitted with values:', values);
+    // navigation.navigate("DashBoard"); // Navigate to Dashboard or handle navigation as needed
+  };
 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Welcome to MyApp</Text>
 
-    // Validate email field
-    if (!email) {
-        errors.email = 'Email is required.';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-        errors.email = 'Email is invalid.';
-    }
-
-    // Validate password field
-    if (!password) {
-        errors.password = 'Password is required.';
-    } else if (password.length < 6) {
-        errors.password = 'Password must be at least 6 characters.';
-    }
-
-    // Set the errors and update form validity
-    setErrors(errors);
-    setIsFormValid(Object.keys(errors).length === 0);
-};
-
-    return (
-        <View style={styles.container}>
-          <Text style={styles.title} >Welcome to MyApp</Text>
-
-          <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
-
-      />
-       <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        secureTextEntry
-      />
-
-<View style={styles.buttonContainer}>
-            <Button title="Login"
-            // style={[styles.button, { backgroundColor: 'red' }]}
-            onPress={()=>navigation.navigate("MainHome")}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleFormSubmit}
+      >
+        {
+          ({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+          <View>
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}
             />
-            <Button title="Register"
-            onPress={()=>navigation.navigate("Register")}
-            />
-            {/* <Button title="TestScreen"
-            onPress={()=>navigation.navigate("TestScreen")}
-            />
-            <Button title="Category"
-            onPress={()=>navigation.navigate("Category")}
-            /> */}
+            {errors.email && <Text style={styles.error}>{errors.email}</Text>}
 
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              onChangeText={handleChange('password')}
+              onBlur={handleBlur('password')}
+              value={values.password}
+              secureTextEntry
+            />
+            {errors.password && <Text style={styles.error}>{errors.password}</Text>}
+
+            <View style={styles.buttonContainer}>
+              <Button title="Login" onPress={handleSubmit} />
+              {/* <Button title="Register" onPress={() => navigation.navigate("Register")} /> */}
+              {/* <Button title="TestScreen" onPress={() => navigation.navigate("TestScreen")} /> */}
             </View>
+          </View>
+          )
+        }
+      </Formik>
 
-            {Object.values(errors).map((error, index) => (
-                <Text key={index} style={styles.error}>
-                    {error}
-                </Text>
-            ))}
-            
-        </View>
-    )
+      
+    </View>
+  );
 }
 
 //styles
