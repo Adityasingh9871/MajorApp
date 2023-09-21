@@ -82,13 +82,10 @@ const validateForm = () => {
 
     <View style={styles.buttonContainer}>
       <Button title="Login"
-      onPress={()=>navigation.navigate("DashBoard")}
+      onPress={()=>navigation.navigate("MainHome")}
       />
       <Button title="Register"
       onPress={()=>navigation.navigate("Register")}
-      />
-      <Button title="TestScreen"
-      onPress={()=>navigation.navigate("TestScreen")}
       />
 
     </View>

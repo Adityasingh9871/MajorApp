@@ -3,29 +3,83 @@ import { StatusBar } from 'expo-status-bar'; // Add Image to the import statemen
 import { StyleSheet,Button, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from "axios"
+// import {AsyncStorage} from "react-native"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
+const store_data=async(data)=>{
+  try {
+    await AsyncStorage.setItem(
+      "refreshToken",data.refreshToken
+    )
+    
+    await AsyncStorage.setItem(
+      "accessToken",data.accessToken
+    )
+
+    console.log("data saved in async storage")
+  } catch (error) {
+    console.log("error in saving data",error)
+  }
+}
+
+const getdata=async(data)=>{
+  try {
+    const res=await AsyncStorage.getItem(data,(err,item)=>{
+      if(err)
+      {
+        console.log(err)
+      }
+      else
+      {
+        // console.log(item)
+        // JSON.parse(item)
+        return item
+      }
+    })
+
+    return res
+    // console.log(JSON.parse(res))
+    // return res
+
+  } catch (error) {
+    console.log("error in retrieving data",error)
+  }
+}
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Email is required'),
   password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
+    .min(3, 'Password must be at least 6 characters')
     .required('Password is required'),
 });
 
 
-export default  Home =()=> {
+
+export default  function Home({navigation}){
   
   const initialValues = {
     email: '',
     password: '',
   };
 
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async(values) => {
     // Handle form submission logic here
     console.log('Form submitted with values:', values);
-    // navigation.navigate("DashBoard"); // Navigate to Dashboard or handle navigation as needed
+    const res=await axios.post('http://localhost:8080/auth/login',{email:"abcd@gmail.com",password:"aaa"})
+    if(res.status!=200)
+    console.log("server error")
+    else{
+      await store_data(res.data)
+      const x=await getdata("refreshToken")
+      const y=await getdata("accessToken")
+
+      console.log(x)
+    }
+
+
   };
 
   return (
@@ -61,8 +115,8 @@ export default  Home =()=> {
 
             <View style={styles.buttonContainer}>
               <Button title="Login" onPress={handleSubmit} />
-              {/* <Button title="Register" onPress={() => navigation.navigate("Register")} /> */}
-              {/* <Button title="TestScreen" onPress={() => navigation.navigate("TestScreen")} /> */}
+              <Button title="Register" onPress={()=>navigation.navigate("Register")} />
+
             </View>
           </View>
           )
