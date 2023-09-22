@@ -1,103 +1,101 @@
 import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar'; // Add Image to the import statement
 import { StyleSheet,Button, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
-export default function Home({navigation})
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6, 'Password must be at least 6 characters')
+    .required('Password is required'),
+});
+export default function Register({navigation})
 {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [rpassword, setRpassword] = useState('');
-  const [errors, setErrors] = useState({});
-  const [isFormValid, setIsFormValid] = useState(false);
-
-
-  useEffect(() => {
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+    rpassword: '',
+  };
   
-    // Trigger form validation when name, 
-    // email, or password changes
-    validateForm();
-}, [ name,email, password,rpassword]);
+  const handleFormSubmit = (values) => {
+    // Handle form submission logic here
+    console.log('Form submitted with values:', values);
+    // navigation.navigate("DashBoard"); // Navigate to Dashboard or handle navigation as needed
+  };
 
-const validateForm = () => {
-    let errors = {};
+    return (
+        <View style={styles.container}>
+          <Text style={styles.title} >Welcome to MyApp</Text>
+          <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleFormSubmit}
+      >
 
-
-    // Validate email field
-    if (!email) {
-        errors.email = 'Email is required.';
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-        errors.email = 'Email is invalid.';
-    }
-
-    // Validate password field
-    if (!password) {
-        errors.password = 'Password is required.';
-    } else if (password.length < 6) {
-        errors.password = 'Password must be at least 6 characters.';
-    }
-
-    if(password!=rpassword)
-    {
-        errors.rpassword='Password didnt match';
-    }
-
-    // Set the errors and update form validity
-    setErrors(errors);
-    setIsFormValid(Object.keys(errors).length === 0);
-};
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title} >Welcome to MyApp</Text>
-      <TextInput
-      style={styles.input}
-      placeholder="Name"
-      onChangeText={(text) => setName(text)}
-      value={name}
-      secureTextEntry
-  />
-
-      <TextInput
-      style={styles.input}
-      placeholder="Email"
-      onChangeText={(text) => setEmail(text)}
-      value={email}
-
-  />
-      <TextInput
-      style={styles.input}
-      placeholder="Password"
-      onChangeText={(text) => setPassword(text)}
-      value={password}
-      secureTextEntry
-  />
-
-    <TextInput
-      style={styles.input}
-      placeholder="Repeat Password"
-      onChangeText={(text) => setRpassword(text)}
-      value={rpassword}
-      secureTextEntry
-    />
-
-    <View style={styles.buttonContainer}>
-      <Button title="Login"
-      onPress={()=>navigation.navigate("MainHome")}
-      />
-      <Button title="Register"
-      onPress={()=>navigation.navigate("Register")}
+          <TextInput
+        style={styles.input}
+        placeholder="Name"
+        onChangeText={(text) => setName(text)}
+        value={name}
+        secureTextEntry
       />
 
-    </View>
+          <TextInput
+        style={styles.input}
+        placeholder="Email"
+        onChangeText={(text) => setEmail(text)}
+        value={email}
 
-    {Object.values(errors).map((error, index) => (
-        <Text key={index} style={styles.error}>
-            {error}
-        </Text>
-    ))}
-          
-  </View>
-  )
+      />
+       <TextInput
+        style={styles.input}
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+        value={password}
+        secureTextEntry
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Confirm Password"
+        onChangeText={(text) => setRpassword(text)}
+        value={rpassword}
+        secureTextEntry
+      />
+
+
+
+
+
+
+<View style={styles.buttonContainer}>
+            <Button title="Login"
+            // style={[styles.button, { backgroundColor: 'red' }]}
+            onPress={()=>navigation.navigate("DashBoard")}
+            />
+            <Button title="Register"
+            onPress={()=>navigation.navigate("Register")}
+            />
+            <Button title="TestScreen"
+            onPress={()=>navigation.navigate("TestScreen")}
+            />
+
+            </View>
+
+            {Object.values(errors).map((error, index) => (
+                <Text key={index} style={styles.error}>
+                    {error}
+                </Text>
+            ))}
+            </Formik>
+            
+        </View>
+    )
 }
 
 //styles
