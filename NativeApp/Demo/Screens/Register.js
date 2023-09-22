@@ -3,16 +3,21 @@ import { StatusBar } from 'expo-status-bar'; // Add Image to the import statemen
 import { StyleSheet,Button, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
+import getdata from '../helpers/asyncStorageGetItem';
+import setdata from '../helpers/asyncStorageSetItem';
+import removedata from '../helpers/asyncStorageRemoveItem'
 
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required'),
+    .email('Invalid email'),
+    // .required('Email is required'),
   password: Yup.string()
     .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
+    // .required('Password is required'),
 });
+
 export default function Register({navigation})
 {
   const initialValues = {
@@ -22,9 +27,19 @@ export default function Register({navigation})
     rpassword: '',
   };
   
-  const handleFormSubmit = (values) => {
+  const handleFormSubmit = async(values) => {
     // Handle form submission logic here
-    console.log('Form submitted with values:', values);
+    await axios.post("http://localhost:8080/auth/register",{email:"abc5@gmail.com",password:"abb"})
+    .then(async(response)=>{
+      // console.log(response.data)
+      await removedata("accessToken")
+      await removedata("refreshToken")
+      await setdata(response.data)
+    })
+    .catch((error)=>{
+      console.log(error)
+    })
+
     // navigation.navigate("DashBoard"); // Navigate to Dashboard or handle navigation as needed
   };
 
@@ -32,67 +47,70 @@ export default function Register({navigation})
         <View style={styles.container}>
           <Text style={styles.title} >Welcome to MyApp</Text>
           <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleFormSubmit}
-      >
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleFormSubmit}
+          >
+            {
+              ({ handleChange, handleBlur, handleSubmit, values, errors })=>(
+                <View>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Name"
+                    onChangeText={handleChange('password')}
+                    value={initialValues.name}
+                    secureTextEntry
+                  />
 
-          <TextInput
-        style={styles.input}
-        placeholder="Name"
-        onChangeText={(text) => setName(text)}
-        value={name}
-        secureTextEntry
-      />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    onChangeText={handleChange('email')}
+                    value={initialValues.email}
 
-          <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={(text) => setEmail(text)}
-        value={email}
+                  />
+                  {errors.email && <Text style={styles.error}>{errors.email}</Text>}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    onChangeText={(text) => setPassword(text)}
+                    value={initialValues.password}
+                    secureTextEntry
+                  />
+                  {errors.password && <Text style={styles.error}>{errors.password}</Text>}
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Confirm Password"
+                    onChangeText={(text) => setRpassword(text)}
+                    value={initialValues.rpassword}
+                    secureTextEntry
+                  />
 
-      />
-       <TextInput
-        style={styles.input}
-        placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-        value={password}
-        secureTextEntry
-      />
+                  <View style={styles.buttonContainer}>
+                    {/* <Button title="Login"
+                    // style={[styles.button, { backgroundColor: 'red' }]}
+                    onPress={()=>navigation.navigate("DashBoard")}
+                    /> */}
+                    <Button title="Register"
+                    onPress={handleSubmit}
+                    />
+                    {/* <Button title="TestScreen"
+                    onPress={()=>navigation.navigate("TestScreen")}
+                    /> */}
 
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        onChangeText={(text) => setRpassword(text)}
-        value={rpassword}
-        secureTextEntry
-      />
+                  </View>
 
+                  {/* {Object.values(initialValues.errors).map((error, index) => (
+                      <Text key={index} style={styles.error}>
+                          {error}
+                      </Text>
+                  ))} */}
 
+                </View>
+              )
+            }
 
-
-
-
-<View style={styles.buttonContainer}>
-            <Button title="Login"
-            // style={[styles.button, { backgroundColor: 'red' }]}
-            onPress={()=>navigation.navigate("DashBoard")}
-            />
-            <Button title="Register"
-            onPress={()=>navigation.navigate("Register")}
-            />
-            <Button title="TestScreen"
-            onPress={()=>navigation.navigate("TestScreen")}
-            />
-
-            </View>
-
-            {Object.values(errors).map((error, index) => (
-                <Text key={index} style={styles.error}>
-                    {error}
-                </Text>
-            ))}
-            </Formik>
+          </Formik>
             
         </View>
     )

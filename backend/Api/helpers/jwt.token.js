@@ -13,7 +13,7 @@ module.exports={
             const secret="1CA91FB45E49F84D273A5431EEECA"
 
             const options={
-                expiresIn:'30s',
+                expiresIn:'5s',
                 issuer:"www.aditya.com"
             }
 
@@ -56,6 +56,7 @@ module.exports={
 
     verifyAccessToken:(req,res,next)=>{
         const head=req.headers['authorization']
+        // console.log(head)
         if(!head) return next(createError.Unauthorized())
 
         const bearer=head.split(" ")
@@ -66,9 +67,9 @@ module.exports={
             if(err)
             {
                 if(err.name=="JsonWebTokenError")
-                return next(createError.Unauthorized("invalid token"))
+                return next(createError.InternalServerError("invalid token"))
                 else
-                return next(createError.InternalServerError(err.message))
+                return next(createError.Unauthorized(err.message))
             }
 
             req.payload=payload

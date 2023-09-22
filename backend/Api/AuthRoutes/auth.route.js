@@ -6,6 +6,7 @@ const User=require("../dbModels/user.model")
 const {signAccessToken,signRefreshToken,verifyAccessToken,verifyRefreshToken} = require("../helpers/jwt.token")
 const client=require("../helpers/redis.init")
 
+
 route.get('/',verifyAccessToken,(req,res,next)=>{
     try {
         res.send("authentication route")
@@ -18,17 +19,17 @@ route.post('/register',async(req,res,next)=>{
     try {
         // console.log(req.body)
         const result=await schema.validateAsync(req.body)
-        
+        // console.log("res",result)
         if(!result) throw createError.BadRequest()
         
         const isExist=await User.findOne({email:result.email})
-        console.log(isExist)
+        // console.log(isExist)
         if(isExist) throw createError.Conflict(`${result.email} already exists`)
         
         const user=new User(result)
         // console.log(user)
         const isSaved=await user.save()
-        // console.log(isSaved)
+        // console.log("sav",isSaved)
         const accessToken=await signAccessToken(isSaved.id)
         const refreshToken=await signRefreshToken(isSaved.id)
 
@@ -61,14 +62,16 @@ route.post("/login",async(req,res,next)=>{
 
 
     } catch (error) {
-        if(err.isJoi==true) return next(createError.BadRequest("invalid username and password"))
-        next(err)
+        if(error.isJoi==true) return next(createError.BadRequest("invalid username and password"))
+        next(error)
     }
 })
 
 route.post("/refreshToken",async(req,res,next)=>{
     try {
+        // console.log(req.body)
         const {refreshToken}=req.body
+        // console.log(refreshToken)
         if(!refreshToken) throw createError.BadRequest("invalid token")
 
         const userid=await verifyRefreshToken(refreshToken)
@@ -76,7 +79,7 @@ route.post("/refreshToken",async(req,res,next)=>{
         const newAccessToken=await signAccessToken(userid)
         const newRefreshToken=await signRefreshToken(userid)
 
-        res.send({newAccessToken,newRefreshToken})
+        res.send({accessToken:newAccessToken,refreshToken:newRefreshToken})
 
     } catch (error) {
         next(error)

@@ -15,7 +15,6 @@ const userSchema=new mongoose.Schema({
     },
     mobile:{
         type:number,
-        unique:true
     },
     name:{
         type:String
@@ -28,7 +27,7 @@ userSchema.pre('save',async function(next){
         const hashedPassword=await bcrypt.hash(this.password,salt)
 
         this.password=hashedPassword
-        console.log(hashedPassword)
+        // console.log(hashedPassword)
         next()
         
     } catch (error) {

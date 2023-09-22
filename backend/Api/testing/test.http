@@ -1,10 +1,9 @@
-post http://localhost:8080/auth/login
+post http://localhost:8080/auth/register
 Content-Type: application/json
 
 {
-    "email":"abcd@gmail.com",
-    "password":"aaa",
-    "mobile":9871426409,
+    "email":"abc4@gmail.com",
+    "password":"aaaa",
     "name":"aditya"
 }
 
@@ -18,9 +17,9 @@ post http://localhost:8080/auth/refreshToken
 Content-Type: application/json
 
 {
-    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY0ZmNhMWRjY2VkNjQzYWQzNDY3ZjUwMiIsImlhdCI6MTY5NDM2NjQ3NCwiZXhwIjoxNjk0MzcwMDc0LCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9.HQ-Pbdh2kbLWZbc7pywB8Ke_DBCQGrlG1bK4kdKAYzM"
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWRpZW5jZSI6IjY1MGMwMWNjNTA2MDA3YmVmYWM4MDc2NiIsImlhdCI6MTY5NTM4MzUzMiwiZXhwIjoxNjk1Mzg3MTMyLCJpc3MiOiJ3d3cuYWRpdHlhLmNvbSJ9.MhG8AqqxJGxBk5vtE6mT48ep-C_zoIeF5sw4bfH1Bgg"
 }
-
+###
 post http://localhost:8080/auth/logout
 Content-Type: application/json
 
