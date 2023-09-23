@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import DashBoard from './DashBoard';
 import TestScreen from './TestScreen';
-import Categories from './Categories';
+import Categories from '../Screens/Categories';
 
 export default function MainHome() {
 
