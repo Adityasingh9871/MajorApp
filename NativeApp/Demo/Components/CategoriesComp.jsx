@@ -1,16 +1,16 @@
-import { ScrollView,StyleSheet,Text,View,Dimensions } from "react-native"
+import { ScrollView,StyleSheet,Text,View,Dimensions, Button } from "react-native"
+import { useEffect,useState } from "react"
 import NavigationStrip from "./NavigationStrip"
 import Chart2 from "./Chart2"
 import RowStrip from "./RowStrip"
-
-
+import {generateColor} from '../helpers/randomColor'
 
 export default function Categories({name,color})
 {   
-    // console.log(name,color)
     return(
         <View style={styles.Container} >
             <View><Text>{name[0][2]}</Text></View>
+
             <View style={styles.ChartContainer}>
                 <Chart2 name={name.slice(1)} color={color} />
             </View>

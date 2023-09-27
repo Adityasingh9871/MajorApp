@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar'; // Add Image to the import statement
 import { StyleSheet,Button, Text, View, TextInput, Dimensions, TouchableOpacity } from 'react-native';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -26,19 +24,34 @@ export default  function Home({navigation}){
     password: '',
   };
 
+  function showToast(x) {
+    // ToastAndroid.show(x, ToastAndroid.SHORT);
+  }
+
   const handleFormSubmit = async(values) => {
     // Handle form submission logic here
     console.log('Form submitted with values:', values);
-    const res=await axios.post('http://localhost:8080/auth/login',{email:"abc1@gmail.com",password:"aaaa"})
-    if(res.status!=200)
-    console.log("server error")
-    else{
-      await setdata(res.data)
-      navigation.navigate("MainHome")
-    }
+    navigation.navigate("MainHome")
+    await axios.post('http://localhost:8080/auth/login',{email:"abc1@gmail.com",password:"aaaa"})
+    .then(async(res)=>{
+      if(res.status==200)
+      {
+        await setdata(res.data)
+        showToast("Login Success")
+        navigation.navigate("MainHome")
+      }
+      else
+      showToast("error occured try again later")
+    })
+    .catch((error)=>{
+      console.log("server error",error)
+      showToast("error occured try again later")
+    })
+
   };
 
   return (
+    // <ToastProvider>
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to MyApp</Text>
 
@@ -81,6 +94,7 @@ export default  function Home({navigation}){
 
       
     </View>
+   
   );
 }
 

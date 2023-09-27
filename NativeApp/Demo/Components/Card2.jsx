@@ -5,10 +5,14 @@ const windowHeight = Dimensions.get('window').height;
 
 import wallet from "../assets/Icons/wallet.png"
 
-export default function TestScreen()
+export default function Card2({type,amount})
 {
 
 
+    if(type=="Credit")
+    var amt=<Text style={{'fontSize':28,color:"green"}}>R$ {amount}</Text>
+    else
+    var amt=<Text style={{'fontSize':28,color:"red"}}>R$ {amount}</Text>
     
     
     return(
@@ -16,8 +20,8 @@ export default function TestScreen()
         <View style={styles.container}>
           <View style={styles.box1}>
             
-            <View style={styles.t1}><Text style={{'fontSize':18,color:"black"}}>Debit</Text></View>
-            <View style={styles.t2}><Text style={{'fontSize':28,color:"black"}}>R$ 2000</Text></View>
+            <View style={styles.t1}><Text style={{'fontSize':18,color:"black"}}>{type}</Text></View>
+            <View style={styles.t2}>{amt}</View>
             <View style={styles.t3}><Text style={{'fontSize':10,color:"black"}}>1 april ,2023</Text></View>
           </View>
           <View style={styles.box2}>
@@ -40,7 +44,8 @@ const styles=StyleSheet.create({
     justifyContent:"space-between",
     padding:10,
     height:windowHeight*.15,
-    margin:10,
+    marginLeft:20,
+    marginTop:5,
     borderRadius:10,
 
   },

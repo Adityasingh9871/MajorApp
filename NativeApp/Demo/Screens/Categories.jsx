@@ -6,7 +6,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export default function Categories()
 {
-    console.log(data1)
+    // console.log(data1)
     return(
       <SafeAreaView>
         <FlatList
