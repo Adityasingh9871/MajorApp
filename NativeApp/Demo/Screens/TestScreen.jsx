@@ -1,28 +1,49 @@
 import { Text,Button,View,StyleSheet,Image,Dimensions, FlatList,SafeAreaView, ScrollView } from "react-native"
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
-
-import wallet from "../assets/Icons/wallet.png"
+import GoalCard from "../Components/GoalCard";
+import { useState } from "react";
+import { useEffect } from "react";
+import SavingCard from "../Components/SavingCard";
 
 export default function TestScreen()
 {
+    const [salary,setsalary] = useState(1000);
+    const [amount,setamount] = useState(25000);
+    const [time,settime] = useState(0);
 
+    const [lis,setlis]=useState([])
 
+    const sum1=(x)=>{
+      var s=0
+      x.forEach(x=>{
+        s+=x
+      })
+
+      return s
+    }
+
+    useEffect(()=>{
+      setamount(amount-sum1(lis))
+      var x=amount/(salary*12)
+      settime(x.toPrecision(2))
+    },[lis])
     
-    
+    const onADD=()=>{
+      setlis(prev=>[...prev,1000])
+    }
+
+    console.log(lis)
+
     return(
       <SafeAreaView>
         <View style={styles.container}>
-          <View style={styles.box1}>
-            
-            <View style={styles.t1}><Text style={{'fontSize':18,color:"black"}}>Debit</Text></View>
-            <View style={styles.t2}><Text style={{'fontSize':28,color:"black"}}>R$ 2000</Text></View>
-            <View style={styles.t3}><Text style={{'fontSize':10,color:"black"}}>1 april ,2023</Text></View>
-          </View>
-          <View style={styles.box2}>
-            <Image style={styles.img} source={require("../assets/Icons/wallet.png")} />
-          </View>
+          <GoalCard salary={salary} remamount={amount} remtime={time} />
+          <FlatList 
+          data={lis}
+          renderItem={({x})=><SavingCard amount={x} />}
+          />
+          <Button onPress={onADD}  title="ADD" />
         </View>
       </SafeAreaView>
     )
@@ -33,15 +54,9 @@ const styles=StyleSheet.create({
     resizeMode:"contain"
   },
   container:{
-    width:"80%%",
     display:"flex",
-    flexDirection:"row",
-    // backgroundColor:"green",
     justifyContent:"space-between",
-    padding:10,
-    height:windowHeight*.15,
-    margin:10,
-    borderRadius:10,
+    // height:windowHeight
 
   },
   box1:{
