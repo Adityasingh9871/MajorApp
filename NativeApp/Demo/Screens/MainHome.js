@@ -6,6 +6,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import DashBoard from './DashBoard';
 import TestScreen from './TestScreen';
 import Categories from '../Screens/Categories';
+import Plan from './Plan';
 
 export default function MainHome() {
 
@@ -13,14 +14,15 @@ export default function MainHome() {
   const Tab = createMaterialBottomTabNavigator();
 
   return (
-    // <NavigationContainer>
-      <Tab.Navigator initialRouteName='TestScreen' screenOptions={{headerTitleAlign:"center",headerStyle: { backgroundColor: "white" }}} >
+
+      <Tab.Navigator initialRouteName='PLan' screenOptions={{headerTitleAlign:"center",headerStyle: { backgroundColor: "white" }}} >
         <Tab.Screen name="TestScreen" component={TestScreen} />
         <Tab.Screen name="DashBoard" component={DashBoard} />
+        <Tab.Screen name="PLan" component={Plan} />
         
         <Tab.Screen name="Category" component={Categories} />
       </Tab.Navigator>
-    // </NavigationContainer>
+
   );
 }
 const styles = StyleSheet.create({

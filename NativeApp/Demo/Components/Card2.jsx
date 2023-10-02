@@ -8,19 +8,24 @@ import wallet from "../assets/Icons/wallet.png"
 export default function Card2({type,amount})
 {
 
+  // console.log(type)
+    if(type=="C")
+    var t="Credit"
+    else
+    var t="Debit"
 
-    if(type=="Credit")
+    if(type=="C")
     var amt=<Text style={{'fontSize':28,color:"green"}}>R$ {amount}</Text>
     else
     var amt=<Text style={{'fontSize':28,color:"red"}}>R$ {amount}</Text>
     
     
     return(
-      <SafeAreaView>
+
         <View style={styles.container}>
           <View style={styles.box1}>
             
-            <View style={styles.t1}><Text style={{'fontSize':18,color:"black"}}>{type}</Text></View>
+            <View style={styles.t1}><Text style={{'fontSize':18,color:"black"}}>{t}</Text></View>
             <View style={styles.t2}>{amt}</View>
             <View style={styles.t3}><Text style={{'fontSize':10,color:"black"}}>1 april ,2023</Text></View>
           </View>
@@ -28,7 +33,7 @@ export default function Card2({type,amount})
             <Image style={styles.img} source={require("../assets/Icons/wallet.png")} />
           </View>
         </View>
-      </SafeAreaView>
+
     )
 }
 

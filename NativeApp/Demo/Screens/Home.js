@@ -51,7 +51,7 @@ export default  function Home({navigation}){
   };
 
   return (
-    // <ToastProvider>
+
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to MyApp</Text>
 

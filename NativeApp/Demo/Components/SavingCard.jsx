@@ -1,64 +1,35 @@
-import {View,Text,StyleSheet,Dimensions} from "react-native"
-const windowidth=Dimensions.get("window").width
-const windowheight=Dimensions.get("window").height
+import {View,Text,Dimensions,Button,FlatList,Modal,TextInput} from "react-native"
+import GoalCard from "../Components/GoalCard";
+import { useState } from "react";
+// import SavingCard from "../Components/SavingCard";
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
-export default function SavingCard({amount})
+
+export default function SavingCard({amount,dev,sdev,mean})
 {
 
-    return(
-        <View style={styles.container}>
-            <View style={styles.box1}><Text style={{fontSize:28,textAlign:"right",padding:10}}>Saving</Text></View>
-            <View style={styles.box3}>
-                <View style={{flex:5,justifyContent:"space-around",padding:10}}><Text style={{textAlign:"left",fontSize:23,color:"black"}}>Saving Amount: {amount}</Text></View>
-                {/* <View style={{flex:1,backgroundColor:"yellow"}}></View> */}
-            </View>
-        </View>
-    )
+  var c="#00BFFF"
+
+
+  var deviation
+  if(amount>=mean+sdev)
+  deviation=<Text style={{fontSize:20,color:"red"}}>{dev}%</Text>
+  else if(amount<=mean-sdev)
+  deviation=<Text style={{fontSize:20,color:"green"}}>{dev}%</Text>
+  else
+  deviation=<Text style={{fontSize:20,color:"orange"}}>{dev}%</Text>
+    
+
+
+  return(
+    <View style={{flex:1,flexDirection:"column"}}>
+      
+      <View style={{display:"flex",flexDirection:"row",padding:10,backgroundColor:c,margin:10,borderRadius:20}}>
+        <View style={{flex:1,padding:3,margin:1,backgroundColor:"c"  ,justifyContent:"center"}}> <Text style={{fontSize:20,color:"white"}}>Expense Amt: {amount}</Text></View>
+        <View style={{flex:1,padding:3,margin:1,backgroundColor:"c" ,justifyContent:"center",fontSize:20,color:"white"}}>Deviation: {deviation}</View>
+      </View>
+    
+    </View>
+  )
 }
-
-const styles=StyleSheet.create(
-{
-    container:{
-        margin:10,
-        display:"flex",
-        height:windowheight*.1,
-        // width:"80%",
-        // backgroundColor:"green",
-        // borderRadius:10
-    },
-    box1:{
-        flex:1,
-        // backgroundColor:"red",
-        justifyContent:"space-around",
-        
-    },
-    box2:{
-        flex:2,
-        display:"flex",
-        flexDirection:"row",
-        // backgroundColor:"blue",
-        fontSize:28
-    },
-    box3:{
-        flex:1,
-        display:"flex",
-        flexDirection:"row",
-        // backgroundColor:"blue",
-        fontSize:28
-    },
-    remAmount:{
-        flex:2,
-        // backgroundColor:"blue",
-        justifyContent:"space-around"
-    },
-    remTime:{
-        // backgroundColor:"yellow",
-        flex:1,
-        justifyContent:"space-around"
-
-    }
-
-
-
-}
-)

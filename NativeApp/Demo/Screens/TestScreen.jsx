@@ -1,91 +1,105 @@
-import { Text,Button,View,StyleSheet,Image,Dimensions, FlatList,SafeAreaView, ScrollView } from "react-native"
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import {View,Text,Dimensions,Button,FlatList,Modal,TextInput} from "react-native"
 import GoalCard from "../Components/GoalCard";
 import { useState } from "react";
-import { useEffect } from "react";
 import SavingCard from "../Components/SavingCard";
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+function getDeviation(mat){
+  var ans=[]
+  ans.push(0)
+  for(var i=1;i<mat.length;i++)
+  {
+    var t=(mat[i]-mat[i-1])/mat[i-1]
+    ans.push(t)
+  }
+
+  return ans
+}
+
+function getMean(mat){
+  var ans=[]
+  for(var i=0;i<mat.length;i++)
+  {
+    var s=0
+    for(var j=0;j<mat[i].length;j++)
+    {
+      s+=mat[i][j]
+    }
+    ans.push(s/mat[i].length)
+  }
+  return ans
+}
+
+function standardDev(arr)
+  {
+    let mean=arr.reduce((acc,curr)=>{
+      return acc+curr
+    },0)/arr.length
+
+    arr=arr.map((k)=>{
+      return (k-mean)**2
+    })
+
+    let sum=arr.reduce((acc,curr)=>acc+curr,0)
+    let variance=sum/arr.length
+    return Math.sqrt(sum/arr.length)
+  }
 
 export default function TestScreen()
 {
-    const [salary,setsalary] = useState(1000);
-    const [amount,setamount] = useState(25000);
-    const [time,settime] = useState(0);
+  const [ModalVis,setModalVis]=useState(false)
+  const [CurrNum,setCurrNum]=useState(0)
+  const [data,setdata]=useState([])
+  const [dataMap,setdataMap]=useState([])
+  const [sdev,setsdev]=useState(0)
+  const [mean,setmean]=useState(0)
+  var c="#0073CF"
 
-    const [lis,setlis]=useState([])
+  
+  const HandleADD=()=>{
+    console.log("clicked")
+    // setModalVis(true)
 
-    const sum1=(x)=>{
-      var s=0
-      x.forEach(x=>{
-        s+=x
-      })
+    var temparr=[]
+    for(var i=0;i<4;i++)
+      temparr.push(Math.floor(Math.random()*150))
 
-      return s
-    }
+    var temp=data
+    temp.push(temparr)
+    setdata(temp)
 
-    useEffect(()=>{
-      setamount(amount-sum1(lis))
-      var x=amount/(salary*12)
-      settime(x.toPrecision(2))
-    },[lis])
-    
-    const onADD=()=>{
-      setlis(prev=>[...prev,1000])
-    }
+    var meanMatrix=getMean(data)
+    let mean=meanMatrix.reduce((acc,curr)=>{
+      return acc+curr
+    },0)/meanMatrix.length
 
-    console.log(lis)
+    var Std_Dev=standardDev(meanMatrix)
+    setsdev(Std_Dev)
+    setmean(mean)
+    var deviation=getDeviation(meanMatrix)
 
-    return(
-      <SafeAreaView>
-        <View style={styles.container}>
-          <GoalCard salary={salary} remamount={amount} remtime={time} />
-          <FlatList 
-          data={lis}
-          renderItem={({x})=><SavingCard amount={x} />}
-          />
-          <Button onPress={onADD}  title="ADD" />
-        </View>
-      </SafeAreaView>
-    )
-}
+    var t=[]
+    for(var i=0;i<meanMatrix.length;i++)
+    t.push([meanMatrix[i].toPrecision(2),deviation[i].toPrecision(2)*100])
+    // console.log("t",t)
+    setdataMap(t)
+      
+  }
 
-const styles=StyleSheet.create({
-  img:{
-    resizeMode:"contain"
-  },
-  container:{
-    display:"flex",
-    justifyContent:"space-between",
-    // height:windowHeight
-
-  },
-  box1:{
-    flex:5,
-    // backgroundColor:"white",
-    display:"flex",
-    flexDirection:"column"
-  },
-  box2:{
-    flex:1,
-    // backgroundColor:"blue"
-  },
-  t1:{
-    flex:2,
-    // backgroundColor:"red",
-    justifyContent:"space-around",
-    
-  },
-  t2:{
-    flex:4,
-    // backgroundColor:"yellow",
-    justifyContent:"flex-end",
-    fontSize:18
-  },
-  t3:{
-    flex:2,
-    // backgroundColor:"brown"
+  const closeModal=()=>{
+    setModalVis(false)
   }
 
 
-
-})
+  return(
+    <View style={{flex:1,flexDirection:"column"}}>
+      
+      <View style={{display:"flex",flexDirection:"row",padding:10,backgroundColor:c,margin:10,borderRadius:20}}>
+        <View style={{flex:1,padding:3,margin:1,backgroundColor:"c"  ,justifyContent:"center"}}> <Text style={{fontSize:20,color:"white"}}>Expense Amount: </Text></View>
+        <View style={{flex:1,padding:3,margin:1,backgroundColor:"c" ,justifyContent:"center"}}><Text style={{fontSize:20,color:"white"}}>Deviation: </Text></View>
+      </View>
+    
+    </View>
+  )
+}
