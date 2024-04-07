@@ -9,7 +9,7 @@ import Register from './Screens/Register';
 import MainHome from './Screens/MainHome';
 import Plan from './Screens/Plan';
 
-export default function App() {
+export default function App({navigation}) {
 
   const Stack=createNativeStackNavigator()
   const Tab = createMaterialBottomTabNavigator();
@@ -20,7 +20,7 @@ export default function App() {
       <Stack.Navigator initialRouteName='Login' screenOptions={{headerTitleAlign:"center",headerTitleStyle: {color:'white'},headerTintColor: 'white',headerTitleStyle:{color:"white"},headerStyle: { backgroundColor: "#0049B7" }}} >
         <Stack.Screen name="Login" component={Home} />
         <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="MainHome" component={MainHome} options={{headerRight:()=>(<View style={{margin:10}}><Button onPress={()=>alert("logout press")} title="LOGOUT" color="red" /></View>)}} />
+        <Stack.Screen name="MainHome" component={MainHome} options={{headerRight:()=>(<View style={{margin:10}}><Button onPress={()=>{alert("logout")}} title="LOGOUT" color="red" /></View>)}} />
         <Stack.Screen name="Plan" component={Plan}  />
       </Stack.Navigator>
 
