@@ -1,4 +1,4 @@
-import {View,Text,Dimensions,Button,FlatList,Modal,TextInput} from "react-native"
+import {View, Text, Dimensions, Button, FlatList, Modal, TextInput, ScrollView} from "react-native"
 import GoalCard from "../Components/GoalCard";
 import { useState } from "react";
 import SavingCard from "../Components/SavingCard";
@@ -54,6 +54,36 @@ export default function TestScreen()
   const [dataMap,setdataMap]=useState([])
   const [sdev,setsdev]=useState(0)
   const [mean,setmean]=useState(0)
+
+  const [listItems, setListItems] = useState([
+    "Item 1",
+    "Item 2",
+    "Item 3",
+    "Item 4",
+    "Item 5",
+    "Item 6",
+    "Item 7",
+    "Item 8",
+    "Item 9",
+    "Item 10",
+    "Item 11",
+    "Item 12",
+    "Item 13",
+    "Item 14",
+    "Item 15",
+    "Item 5",
+    "Item 6",
+    "Item 7",
+    "Item 8",
+    "Item 9",
+    "Item 10",
+    "Item 11",
+    "Item 12",
+    "Item 13",
+    "Item 14",
+    "Item 15",
+  ]);
+
   var c="#0073CF"
 
   
@@ -95,10 +125,18 @@ export default function TestScreen()
   return(
     <View style={{flex:1,flexDirection:"column"}}>
       
-      <View style={{display:"flex",flexDirection:"row",padding:10,backgroundColor:c,margin:10,borderRadius:20}}>
-        <View style={{flex:1,padding:3,margin:1,backgroundColor:"c"  ,justifyContent:"center"}}> <Text style={{fontSize:20,color:"white"}}>Expense Amount: </Text></View>
-        <View style={{flex:1,padding:3,margin:1,backgroundColor:"c" ,justifyContent:"center"}}><Text style={{fontSize:20,color:"white"}}>Deviation: </Text></View>
-      </View>
+      {/*<View style={{display:"flex",flexDirection:"row",padding:10,backgroundColor:c,margin:10,borderRadius:20}}>*/}
+      {/*  <View style={{flex:1,padding:3,margin:1,backgroundColor:"c"  ,justifyContent:"center"}}> <Text style={{fontSize:20,color:"white"}}>Expense Amount: </Text></View>*/}
+      {/*  <View style={{flex:1,padding:3,margin:1,backgroundColor:"c" ,justifyContent:"center"}}><Text style={{fontSize:20,color:"white"}}>Deviation: </Text></View>*/}
+      {/*</View>*/}
+
+      <ScrollView>
+        {listItems.map((item, index) => (
+            <View key={index} style={{ padding: 10 }}>
+              <Text>{item}</Text>
+            </View>
+        ))}
+      </ScrollView>
     
     </View>
   )

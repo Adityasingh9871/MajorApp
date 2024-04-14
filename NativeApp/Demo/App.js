@@ -17,7 +17,7 @@ export default function App({navigation}) {
   return (
     <NavigationContainer>
       
-      <Stack.Navigator initialRouteName='Login' screenOptions={{headerTitleAlign:"center",headerTitleStyle: {color:'white'},headerTintColor: 'white',headerTitleStyle:{color:"white"},headerStyle: { backgroundColor: "#0049B7" }}} >
+      <Stack.Navigator initialRouteName='Login' screenOptions={{headerTitleAlign:"center",headerTintColor: 'white',headerTitleStyle:{color:"white"},headerStyle: { backgroundColor: "#0049B7" }}} >
         <Stack.Screen name="Login" component={Home} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="MainHome" component={MainHome} options={{headerRight:()=>(<View style={{margin:10}}><Button onPress={()=>{alert("logout")}} title="LOGOUT" color="red" /></View>)}} />

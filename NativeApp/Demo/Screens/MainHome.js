@@ -16,9 +16,9 @@ export default function MainHome() {
   return (
 
       <Tab.Navigator initialRouteName='PLan' screenOptions={{headerTitleAlign:"center",headerStyle: { backgroundColor: "white" }}} >
-        <Tab.Screen name="TestScreen" component={TestScreen} />
+        <Tab.Screen name="Policies" component={TestScreen} />
         <Tab.Screen name="DashBoard" component={DashBoard} />
-        <Tab.Screen name="PLan" component={Plan} />
+        <Tab.Screen name="Plan" component={Plan} />
         
         <Tab.Screen name="Category" component={Categories} />
       </Tab.Navigator>
